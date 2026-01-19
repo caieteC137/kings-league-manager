@@ -11,8 +11,8 @@ export const MATCH_CONFIG = {
 };
 
 export const SOUND_FILES: Record<SoundEvent, string> = {
-  START: '/media/sounds/sirene.mp3',
-  GOAL: '/media/sounds/gol.mp3',
+  START: '/sounds/sirene.mp3',
+  GOAL: '/sounds/gol.mp3',
   CARD: 'carta.mp3',
   DICE: 'dado.mp3',
   PRESIDENT: 'alerta_epico.mp3',

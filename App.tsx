@@ -185,7 +185,7 @@ const App: React.FC = () => {
         <div className="flex items-center gap-4">
           <div className="w-32 h-16 md:w-60 md:h-28 flex items-center justify-center overflow-hidden">
             <img
-              src="media/images/rede_esportes_logo.png"
+              src="/images/rede_esportes_logo.png"
               alt="Logo_rede_esportes"
               className="max-w-full max-h-full object-contain"
             />

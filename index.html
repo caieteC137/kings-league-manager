@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KINGS League Rede Esportes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+    :root {
+      --neon-cyan: #22d3ee;
+      --neon-pink: #ec4899;
+      --neon-yellow: #eab308;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #020617;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .container-image {
+      width: 300px;
+      height: 200px;
+      border: 1px solid #ccc;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container-image img {
+      max-width: 100%;
+      /* Garante que a imagem não ultrapasse a div */
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      /* Mantém a proporção sem cortar a logo */
+      display: block;
+      /* Remove espaços extras */
+    }
+
+    .font-digital {
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .font-mono {
+      font-family: 'JetBrains+Mono', monospace;
+    }
+
+    .btn-glow {
+      transition: all 0.3s ease;
+    }
+
+    .btn-glow:active {
+      transform: scale(0.92);
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.5);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fade-in 0.3s ease-out forwards;
+    }
+  </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+  }
+}
+</script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>

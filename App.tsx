@@ -41,6 +41,37 @@ const App: React.FC = () => {
     audio.play().catch(e => console.warn(`Erro ao tocar ${event}:`, e));
   }, [isMuted]);
 
+  const playSoundAndWait = useCallback((event: SoundEvent): Promise<void> => {
+    return new Promise((resolve) => {
+      if (isMuted) {
+        resolve();
+        return;
+      }
+      const path = SOUND_FILES[event];
+      const audio = new Audio(path);
+
+      const handleEnd = () => {
+        audio.removeEventListener('ended', handleEnd);
+        audio.removeEventListener('error', handleError);
+        resolve();
+      };
+
+      const handleError = () => {
+        audio.removeEventListener('ended', handleEnd);
+        audio.removeEventListener('error', handleError);
+        console.warn(`Erro ao tocar ${event}`);
+        resolve();
+      };
+
+      audio.addEventListener('ended', handleEnd);
+      audio.addEventListener('error', handleError);
+      audio.play().catch(e => {
+        console.warn(`Erro ao tocar ${event}:`, e);
+        resolve();
+      });
+    });
+  }, [isMuted]);
+
   const addLog = (description: string, type: MatchEvent['type'] = 'INFO') => {
     const newEvent: MatchEvent = {
       id: Math.random().toString(36).substr(2, 9),
@@ -116,9 +147,32 @@ const App: React.FC = () => {
   const handleStartStop = () => {
     if (match.phase === MatchPhase.NOT_STARTED || match.phase === MatchPhase.HALFTIME) {
       const nextPhase = match.phase === MatchPhase.NOT_STARTED ? MatchPhase.FIRST_HALF : MatchPhase.SECOND_HALF;
-      setMatch(prev => ({ ...prev, phase: nextPhase, isRunning: true }));
-      playSound('START');
-      addLog(`INÍCIO: ${phaseLabels[nextPhase]}`, 'INFO');
+
+      // Play tic-tac first, then sirene before starting the game
+      if (!isMuted) {
+        const ticTacAudio = new Audio('/sounds/tic-tac.m4a');
+        ticTacAudio.addEventListener('ended', () => {
+          playSoundAndWait('START').then(() => {
+            setMatch(prev => ({ ...prev, phase: nextPhase, isRunning: true }));
+            addLog(`INÍCIO: ${phaseLabels[nextPhase]}`, 'INFO');
+          });
+        });
+        ticTacAudio.addEventListener('error', () => {
+          playSoundAndWait('START').then(() => {
+            setMatch(prev => ({ ...prev, phase: nextPhase, isRunning: true }));
+            addLog(`INÍCIO: ${phaseLabels[nextPhase]}`, 'INFO');
+          });
+        });
+        ticTacAudio.play().catch(() => {
+          playSoundAndWait('START').then(() => {
+            setMatch(prev => ({ ...prev, phase: nextPhase, isRunning: true }));
+            addLog(`INÍCIO: ${phaseLabels[nextPhase]}`, 'INFO');
+          });
+        });
+      } else {
+        setMatch(prev => ({ ...prev, phase: nextPhase, isRunning: true }));
+        addLog(`INÍCIO: ${phaseLabels[nextPhase]}`, 'INFO');
+      }
     } else {
       setMatch(prev => ({ ...prev, isRunning: !prev.isRunning }));
     }

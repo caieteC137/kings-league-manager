@@ -14,7 +14,7 @@ export const SOUND_FILES: Record<SoundEvent, string> = {
   START: '/sounds/sirene.mp3',
   GOAL: '/sounds/gol.mp3',
   CARD: '/sounds/carta-secreta.mp3',
-  DICE: 'dado.mp3',
+  DICE: '/sounds/dado.mp3',
   PRESIDENT: '/sounds/penalti-presidente.mp3',
   COUNTDOWN: '/sounds/ultimos-10-sec-1-tempo.mp3',
 };
